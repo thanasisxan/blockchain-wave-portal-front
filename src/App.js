@@ -2,7 +2,7 @@ import {ethers} from "ethers";
 import React, {useEffect, useState} from "react";
 import './App.css';
 import abi from "./utils/WavePortal.json";
-
+import {Button, Input, InputGroup, InputRightElement, Stack, Textarea} from '@chakra-ui/react'
 
 export default function App() {
 
@@ -19,6 +19,10 @@ export default function App() {
      * Create a variable here that references the abi content!
      */
     const contractABI = abi.abi;
+
+    const [inputValue, setInputValue] = useState('')
+
+    const handleInputChange = (event) => setInputValue(event.target.value);
 
     const checkIfWalletIsConnected = async () => {
         try {
@@ -81,7 +85,7 @@ export default function App() {
                 /*
                 * Execute the actual wave from your smart contract
                 */
-                const waveTxn = await wavePortalContract.wave("this is a message");
+                const waveTxn = await wavePortalContract.wave(inputValue);
                 console.log("Mining...", waveTxn.hash);
 
                 await waveTxn.wait();
@@ -147,39 +151,49 @@ export default function App() {
 
     return (
         <div className="mainContainer">
+            <Stack direction='column' spacing={15}>
+                <div className="dataContainer">
+                    <div className="header">
+                        👋 Hey there!
+                    </div>
 
-            <div className="dataContainer">
-                <div className="header">
-                    👋 Hey there!
-                </div>
+                    <div className="bio">
+                        I am thanasisxan and I work as fullstack dev and I am trying to learn more about blockchain
+                        development! Connect your Ethereum wallet and wave at me!
+                    </div>
+                    {currentAccount && (
+                        <div>
+                            {/*<Stack direction='row' spacing={3}>*/}
+                                <Textarea size='lg' value={inputValue}
+                                          onChange={handleInputChange}
+                                          placeholder='Write a message to goerli testnet blockchain!'/>
 
-                <div className="bio">
-                    I am thanasisxan and I work as fullstack dev and I am trying to learn more about blockchain
-                    development! Connect your Ethereum wallet and wave at me!
-                </div>
+                                <Button className="waveButton" colorScheme='teal' size='md' onClick={wave}>
+                                    Send
+                                </Button>
+                            {/*</Stack>*/}
+                        </div>
+                    )}
 
-                <button className="waveButton" onClick={wave}>
-                    Wave at Me
-                </button>
-
-                {/*
+                    {/*
                 * If there is no currentAccount render this button
                 */}
-                {!currentAccount && (
-                    <button className="waveButton" onClick={connectWallet}>
-                        Connect Wallet
-                    </button>
-                )}
+                    {!currentAccount && (
+                        <button className="waveButton" onClick={connectWallet}>
+                            Connect Wallet
+                        </button>
+                    )}
 
-                {allWaves.map((wave, index) => {
-                    return (
-                        <div key={index} style={{backgroundColor: "OldLace", marginTop: "16px", padding: "8px"}}>
-                            <div>Address: {wave.address}</div>
-                            <div>Time: {wave.timestamp.toString()}</div>
-                            <div>Message: {wave.message}</div>
-                        </div>)
-                })}
-            </div>
+                    {allWaves.map((wave, index) => {
+                        return (
+                            <div key={index} style={{backgroundColor: "OldLace", marginTop: "16px", padding: "8px"}}>
+                                <div>Address: {wave.address}</div>
+                                <div>Time: {wave.timestamp.toString()}</div>
+                                <div>Message: {wave.message}</div>
+                            </div>)
+                    })}
+                </div>
+            </Stack>
         </div>
     );
 }
