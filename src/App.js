@@ -111,7 +111,7 @@ export default function App() {
                     development! Connect your Ethereum wallet and wave at me!
                 </div>
 
-                <button className="waveButton" onClick={null}>
+                <button className="waveButton" onClick={wave}>
                     Wave at Me
                 </button>
 
