@@ -1,5 +1,5 @@
-import * as React from "react";
 import { ethers } from "ethers";
+import React, { useEffect, useState } from "react";
 import './App.css';
 
 export default function App() {
@@ -36,7 +36,7 @@ export default function App() {
             I am thanasisxan and I work as fullstack dev and I am trying to learn more about blockchain development! Connect your Ethereum wallet and wave at me!
           </div>
 
-          <button className="waveButton" onClick={wave}>
+          <button className="waveButton" onClick={null}>
             Wave at Me
           </button>
         </div>
