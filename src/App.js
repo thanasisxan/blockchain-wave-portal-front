@@ -89,6 +89,7 @@ export default function App() {
 
                 count = await wavePortalContract.getTotalWaves();
                 console.log("Retrieved total wave count...", count.toNumber());
+                await getAllWaves.wait()
             } else {
                 console.log("Ethereum object doesn't exist!");
             }
