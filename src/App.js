@@ -89,7 +89,7 @@ export default function App() {
 
                 count = await wavePortalContract.getTotalWaves();
                 console.log("Retrieved total wave count...", count.toNumber());
-                await getAllWaves.wait()
+                await getAllWaves();
             } else {
                 console.log("Ethereum object doesn't exist!");
             }
@@ -141,6 +141,7 @@ export default function App() {
 
     useEffect(() => {
         checkIfWalletIsConnected();
+        getAllWaves();
     }, [])
 
 
