@@ -2,7 +2,7 @@ import {ethers} from "ethers";
 import React, {useEffect, useState} from "react";
 import './App.css';
 import abi from "./utils/WavePortal.json";
-import {Button, Input, InputGroup, InputRightElement, Stack, Textarea} from '@chakra-ui/react'
+import {Button, ChakraProvider, Input, InputGroup, InputRightElement, Stack, Textarea, theme} from '@chakra-ui/react'
 
 export default function App() {
 
@@ -150,20 +150,21 @@ export default function App() {
 
 
     return (
-        <div className="mainContainer">
-            <Stack direction='column' spacing={15}>
-                <div className="dataContainer">
-                    <div className="header">
-                        👋 Hey there!
-                    </div>
+        <ChakraProvider theme={theme}>
+            <div className="mainContainer">
+                <Stack direction='column' spacing={15}>
+                    <div className="dataContainer">
+                        <div className="header">
+                            👋 Hey there!
+                        </div>
 
-                    <div className="bio">
-                        I am thanasisxan and I work as fullstack dev and I am trying to learn more about blockchain
-                        development! Connect your Ethereum wallet and wave at me!
-                    </div>
-                    {currentAccount && (
-                        <div>
-                            {/*<Stack direction='row' spacing={3}>*/}
+                        <div className="bio">
+                            I am thanasisxan and I work as fullstack dev and I am trying to learn more about blockchain
+                            development! Connect your Ethereum wallet and wave at me!
+                        </div>
+                        {currentAccount && (
+                            <div>
+                                {/*<Stack direction='row' spacing={3}>*/}
                                 <Textarea size='lg' value={inputValue}
                                           onChange={handleInputChange}
                                           placeholder='Write a message to goerli testnet blockchain!'/>
@@ -171,29 +172,31 @@ export default function App() {
                                 <Button className="waveButton" colorScheme='teal' size='md' onClick={wave}>
                                     Send
                                 </Button>
-                            {/*</Stack>*/}
-                        </div>
-                    )}
+                                {/*</Stack>*/}
+                            </div>
+                        )}
 
-                    {/*
+                        {/*
                 * If there is no currentAccount render this button
                 */}
-                    {!currentAccount && (
-                        <button className="waveButton" onClick={connectWallet}>
-                            Connect Wallet
-                        </button>
-                    )}
+                        {!currentAccount && (
+                            <button className="waveButton" onClick={connectWallet}>
+                                Connect Wallet
+                            </button>
+                        )}
 
-                    {allWaves.map((wave, index) => {
-                        return (
-                            <div key={index} style={{backgroundColor: "OldLace", marginTop: "16px", padding: "8px"}}>
-                                <div>Address: {wave.address}</div>
-                                <div>Time: {wave.timestamp.toString()}</div>
-                                <div>Message: {wave.message}</div>
-                            </div>)
-                    })}
-                </div>
-            </Stack>
-        </div>
+                        {allWaves.map((wave, index) => {
+                            return (
+                                <div key={index}
+                                     style={{backgroundColor: "OldLace", marginTop: "16px", padding: "8px"}}>
+                                    <div>Address: {wave.address}</div>
+                                    <div>Time: {wave.timestamp.toString()}</div>
+                                    <div>Message: {wave.message}</div>
+                                </div>)
+                        })}
+                    </div>
+                </Stack>
+            </div>
+        </ChakraProvider>
     );
 }
