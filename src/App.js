@@ -14,7 +14,7 @@ export default function App() {
     /**
      * Create a variable here that holds the contract address after you deploy!
      */
-    const contractAddress = "0x51e48c3C2e683328ab57C4506f367257B2f4AcBf";
+    const contractAddress = "0x5FeaA035A5038e0e3b635BC4eF1BFFb2B4C00B88";
     /**
      * Create a variable here that references the abi content!
      */
@@ -170,7 +170,7 @@ export default function App() {
 
                                 <Button className="waveButton" colorScheme='teal' size='md' onClick={wave}>
                                     Send
-                                </Button>
+                                </Button>+
                             {/*</Stack>*/}
                         </div>
                     )}
