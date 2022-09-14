@@ -170,7 +170,7 @@ export default function App() {
 
                                 <Button className="waveButton" colorScheme='teal' size='md' onClick={wave}>
                                     Send
-                                </Button>+
+                                </Button>
                             {/*</Stack>*/}
                         </div>
                     )}
