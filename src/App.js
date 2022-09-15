@@ -2,7 +2,19 @@ import {ethers} from "ethers";
 import React, {useEffect, useState} from "react";
 import './App.css';
 import abi from "./utils/WavePortal.json";
-import {Button, ChakraProvider, Input, InputGroup, InputRightElement, Stack, Textarea, theme} from '@chakra-ui/react'
+import {ColorModeSwitcher} from './ColorModeSwitcher';
+import {
+    Box,
+    Button,
+    ChakraProvider, Grid,
+    GridItem,
+    Input,
+    InputGroup,
+    InputRightElement,
+    Stack, Text,
+    Textarea,
+    theme, VStack
+} from '@chakra-ui/react'
 
 export default function App() {
 
@@ -151,19 +163,23 @@ export default function App() {
 
     return (
         <ChakraProvider theme={theme}>
-            <div className="mainContainer">
-                <Stack direction='column' spacing={15}>
-                    <div className="dataContainer">
-                        <div className="header">
+            <Box textAlign="center" fontSize="xl">
+                <Grid minH="100vh" p={3}>
+                    <ColorModeSwitcher justifySelf="flex-end"/>
+                    <VStack spacing={8}>
+                        <Box>
                             👋 Hey there!
-                        </div>
+                        </Box>
 
-                        <div className="bio">
-                            I am thanasisxan and I work as fullstack dev and I am trying to learn more about blockchain
-                            development! Connect your Ethereum wallet and wave at me!
-                        </div>
+                        <Box>
+                            I am thanasisxan, I work as fullstack dev and I am trying to learn more about blockchain
+                            development!
+                            <Box>
+                                Connect your Ethereum wallet and wave at me!
+                            </Box>
+                        </Box>
                         {currentAccount && (
-                            <div>
+                            <Box>
                                 {/*<Stack direction='row' spacing={3}>*/}
                                 <Textarea size='lg' value={inputValue}
                                           onChange={handleInputChange}
@@ -173,30 +189,35 @@ export default function App() {
                                     Send
                                 </Button>
                                 {/*</Stack>*/}
-                            </div>
+                            </Box>
                         )}
 
                         {/*
                 * If there is no currentAccount render this button
                 */}
                         {!currentAccount && (
-                            <button className="waveButton" onClick={connectWallet}>
+                            <Button className="waveButton" onClick={connectWallet}>
                                 Connect Wallet
-                            </button>
+                            </Button>
                         )}
 
                         {allWaves.map((wave, index) => {
                             return (
-                                <div key={index}
-                                     style={{backgroundColor: "OldLace", marginTop: "16px", padding: "8px"}}>
-                                    <div>Address: {wave.address}</div>
-                                    <div>Time: {wave.timestamp.toString()}</div>
-                                    <div>Message: {wave.message}</div>
-                                </div>)
+                                <Box key={index}
+                                     style={{
+                                         backgroundColor: "#45a1c9",
+                                         marginTop: "16px",
+                                         padding: "8px",
+                                         border: "solid 2px #f1d959",
+                                         "border-radius":"15px"}}>
+                                    <Text>Address: {wave.address}</Text>
+                                    <Text>Time: {wave.timestamp.toString()}</Text>
+                                    <Text>Message: {wave.message}</Text>
+                                </Box>)
                         })}
-                    </div>
-                </Stack>
-            </div>
+                    </VStack>
+                </Grid>
+            </Box>
         </ChakraProvider>
     );
 }
